@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Portfolio::<em class="warning">demo</em></a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {% if request.user.is_authenticated %}
+      <ul class="navbar-nav mr-auto col-10">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'network' %}">Network</a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a onclick="toggleDropdown()" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{request.user}} &nbsp;<i class="fa fa-user"></i>
+          </a>
+        </li>
+      </ul>
+      <div id="profile" class="hide" aria-labelledby="navbarDropdown">
+        {% include 'snippets/account.html' %}
+      </div>
+    {% else%}
+    <ul class="navbar-nav mr-auto col-10"></ul>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Log in</a>
+        </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+    </ul>
+    {% endif%}
+  </div>
+</nav>
+
+<script type="text/javascript">
+  function toggleDropdown(){
+    document.getElementById('profile').classList.toggle("hide");
+  }
+</script>
