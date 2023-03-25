@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from useraccount.forms import *
-
+from useraccount.forms.registration_form import RegistrationForm
+from useraccount.forms.login_form import LoginForm
+from useraccount.forms.update_form import UpdateForm
 from useraccount.models import UserAccount
 
 
@@ -24,7 +25,7 @@ def registration_view(request):
     context = {}
 
     if request.POST:
-        form = RegisterForm(request.POST)
+        form = RegistrationForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -38,8 +39,8 @@ def registration_view(request):
             context['registration_form'] = form
             return render(request, "useraccount/register.html", context)
     else: #get request
-        context['registration_form'] = RegisterForm()
-        return render(request, "useraccount/register.html", context)
+        context['registration_form'] = RegistrationForm()
+        return render(request, "guest/register.html", context)
 
 def login_view(request):
     """
@@ -70,10 +71,10 @@ def login_view(request):
                 return redirect('home')
         else:
             context['login_form'] = form
-            return render(request, 'useraccount/login.html', context)
+            return render(request, 'guest/home.html', context)
     else:
         context['login_form'] = LoginForm()
-        return render(request, 'useraccount/login.html', context)
+        return render(request, 'guest/home.html', context)
 
 def logout_view(request):
     """

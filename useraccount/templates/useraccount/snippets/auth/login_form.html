@@ -1,15 +1,20 @@
-<form>
-  <p class="h4 text-secondary"> <bold >Log in </bold><br><br>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <br>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
+<form method="POST">
+  {% csrf_token %}
+  {% for field in form %}
+              <div class="form-group">
+                  <p>{{field.label_tag}}</p>
+                  {{ field}}
+
+                  {% if field.help_text%}
+                    <small id="emailHelp" class="form-text text-muted">{{field.help_text}}</small>
+                  {% endif %}
+
+
+                  {% if field.errors%}
+                  <p>{{field.error}}</p>
+                  {% endif %}
+              </div>
+            {% endfor %}
     <br>
 
     <br>

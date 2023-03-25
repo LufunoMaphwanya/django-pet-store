@@ -21,7 +21,7 @@ from useraccount.views import registration_view, login_view, logout_view, update
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register', registration_view, name="register"),
-    path('login', login_view, name="login"),
+    path('', login_view, name="home"),
     path('logout', logout_view, name="logout"),
     path('profile', update_user_view, name="profile"),
 

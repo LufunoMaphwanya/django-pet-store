@@ -1,24 +1,30 @@
-<form>
-  <p class="h4 text-secondary"> <bold >Register to get strated </bold><br><br>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <br>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
+<form method="POST">
+  {% csrf_token %}
+  {% for field in form %}
+              <div class="form-group">
+                  <p>{{field.label_tag}}</p>
+                  {{ field}}
+
+                  {% if field.help_text%}
+                    <small id="emailHelp" class="form-text text-muted">{{field.help_text}}</small>
+                  {% endif %}
+
+
+                  {% if field.errors%}
+                  <p>{{field.error}}</p>
+                  {% endif %}
+              </div>
+            {% endfor %}
     <br>
 
     <br>
 
-  <button type="submit" class="btn text-light bg-primary">Register</button>
+  <button type="submit" class="btn text-light bg-primary">Log in</button>
   <br />
   <br />
-  <p class="h6 text-primary"> Already have an account<br><br>
-          <a href="{% url 'home' %}" class="text-tertiary txt-secondary">Log in</a>
+  <p class="h6 text-primary"> if you don not have an account<br><br>
 
         </p>
+            <a href="{% url 'register' %}" class="text-tertiary txt-secondary">Register</a>
+
 </form>
